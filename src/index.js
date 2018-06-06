@@ -3,7 +3,10 @@ import { render } from 'react-dom'
 import { observable, action, computed } from 'mobx'
 import { observer } from 'mobx-react'
 
+import './app.css'
 import 'bulma/css/bulma.css'
+
+const cardStyle = { margin: '1em 0' }
 
 const model = observable.array([
   {
@@ -24,20 +27,20 @@ const enabled = computed(() => model.filter(s => s.on).length)
 
 const App = observer(() => {
   return (
-    <div style={{ margin: '2em' }}>
+    <React.Fragment>
       <h3 className="title is-3">
         Number of enabled switches: {enabled.get()}
       </h3>
       <ul>
         {model.map((s, idx) => {
           return (
-            <li key={idx} className="card" style={{ margin: '1em' }}>
+            <li key={idx} className="card" style={cardStyle}>
               <div className="card-header">
                 <h2 className="card-header-title">
                   {s.name} {s.on ? 'ON' : 'OFF'}
                 </h2>
               </div>
-              <div class="card-content">
+              <div className="card-content">
                 <button className="button" onClick={() => toggle(idx)}>
                   {'Turn ' + (s.on ? 'Off' : 'On')}
                 </button>
@@ -47,7 +50,7 @@ const App = observer(() => {
           )
         })}
       </ul>
-    </div>
+    </React.Fragment>
   )
 })
 
